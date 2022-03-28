@@ -12,8 +12,8 @@ class BindingAdapters {
         fun loadImage(img: ImageView, imageUrl: String?) {
             Glide.with(img.getContext())
                 .load(imageUrl)
-                .placeholder(R.drawable.ic_launcher_background)
-                .error(R.drawable.ic_launcher_background)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
                 .into(img)
         }
     }
