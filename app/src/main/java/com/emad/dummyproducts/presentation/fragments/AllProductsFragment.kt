@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.emad.dummyproducts.databinding.FragmentAllProductsBinding
 import com.emad.dummyproducts.domain.listeners.ProductSelected
 import com.emad.dummyproducts.presentation.adapters.ProductsAdapter
@@ -52,6 +53,6 @@ class AllProductsFragment : Fragment(), ProductSelected {
     }
 
     override fun OnProductSelected(productID: Int) {
-        Log.d("TAG", "OnProductSelected: ")
+        findNavController().navigate(AllProductsFragmentDirections.actionAllProductsFragmentToProductDetailsFragment(productID))
     }
 }

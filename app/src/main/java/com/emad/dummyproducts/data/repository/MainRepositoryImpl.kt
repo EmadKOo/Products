@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.emad.dummyproducts.data.datasources.remote.ApiService
 import com.emad.dummyproducts.data.model.AllProductsResponse
+import com.emad.dummyproducts.data.model.ProductDetails
 import com.emad.dummyproducts.data.paging.ProductsPagingSource
 import com.emad.dummyproducts.domain.repository.MainRepository
 import kotlinx.coroutines.flow.Flow
@@ -21,6 +22,8 @@ class MainRepositoryImpl(private val apiService: ApiService): MainRepository {
            pagingSourceFactory = {ProductsPagingSource(apiService)}
        ).flow
     }
+
+    override suspend fun getProductDetails(productID: Int): ProductDetails = apiService.getProductDetails(id = productID)
 
 
 }
