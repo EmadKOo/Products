@@ -27,12 +27,12 @@ class AllProductsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadAllProducts(1)
+        loadAllProducts()
     }
     
-    private fun loadAllProducts(page: Int) {
+    private fun loadAllProducts() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            mainViewModel.getAllProducts(page)
+            mainViewModel.getAllProducts()
             mainViewModel.allProductsStateFlow.collectLatest {
                 when(it){
                     is Resource.Error -> {
