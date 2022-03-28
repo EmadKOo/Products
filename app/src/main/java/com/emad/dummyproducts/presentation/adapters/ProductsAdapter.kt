@@ -1,7 +1,5 @@
 package com.emad.dummyproducts.presentation.adapters
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -9,11 +7,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.emad.dummyproducts.data.model.AllProductsResponse
 import com.emad.dummyproducts.databinding.ProductItemBinding
+import com.emad.dummyproducts.domain.listeners.ProductSelected
 
 class ProductsAdapter: PagingDataAdapter<AllProductsResponse.Product, ProductsAdapter.MyViewHolder>(DIFFUTIL) {
-    inner class MyViewHolder(private val mBinding: ProductItemBinding) : RecyclerView.ViewHolder(mBinding.root) {
+    lateinit var productSelected: ProductSelected
+    inner class MyViewHolder(private val mBinding: ProductItemBinding, private val _productSelected: ProductSelected) : RecyclerView.ViewHolder(mBinding.root) {
         fun bind(product: AllProductsResponse.Product) {
             mBinding.product = product
+            mBinding.productsCardView.setOnClickListener{
+                _productSelected.OnProductSelected(product.id)
+            }
         }
     }
 
@@ -25,7 +28,7 @@ class ProductsAdapter: PagingDataAdapter<AllProductsResponse.Product, ProductsAd
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val mBinding = ProductItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyViewHolder(mBinding)
+        return MyViewHolder(mBinding, productSelected)
     }
 
     companion object {
@@ -44,5 +47,9 @@ class ProductsAdapter: PagingDataAdapter<AllProductsResponse.Product, ProductsAd
                 return oldItem == newItem
             }
         }
+    }
+
+    fun submitProductSelectedListener(iProductSelected: ProductSelected){
+        productSelected= iProductSelected
     }
 }

@@ -8,15 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.emad.dummyproducts.databinding.FragmentAllProductsBinding
+import com.emad.dummyproducts.domain.listeners.ProductSelected
 import com.emad.dummyproducts.presentation.adapters.ProductsAdapter
 import com.emad.dummyproducts.presentation.viewmodel.MainViewModel
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AllProductsFragment : Fragment() {
+class AllProductsFragment : Fragment(), ProductSelected {
     lateinit var productsAdapter: ProductsAdapter
     lateinit var mBinding: FragmentAllProductsBinding
     val mainViewModel by viewModel<MainViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        productsAdapter = ProductsAdapter()
+        productsAdapter.submitProductSelectedListener(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +40,6 @@ class AllProductsFragment : Fragment() {
     }
 
     private fun initRecyclerview(){
-        productsAdapter = ProductsAdapter()
         mBinding.productsRecyclerView.adapter= productsAdapter
     }
 
@@ -43,5 +49,9 @@ class AllProductsFragment : Fragment() {
                 productsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
             }
         }
+    }
+
+    override fun OnProductSelected(productID: Int) {
+        Log.d("TAG", "OnProductSelected: ")
     }
 }
