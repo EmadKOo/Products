@@ -1,21 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
+        <variable
+            name="product"
+            type="com.emad.dummyproducts.data.model.ProductDetails.ProductInfo" />
     </data>
 
-    <FrameLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.fragments.ProductDetailsFragment">
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        android:scrollbars="vertical">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:orientation="vertical"
+            tools:context=".presentation.fragments.ProductDetailsFragment">
 
-    </FrameLayout>
+            <ImageView
+                android:id="@+id/productImageView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                android:scaleType="fitCenter"
+                loadImage="@{product.image}"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/productName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:fontFamily="@font/almarai"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp"
+                android:text="@{product.name}"
+                tools:text="@tools:sample/lorem" />
+
+            <TextView
+                android:id="@+id/productDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:fontFamily="@font/almarai"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                android:text="@{product.describtion}"
+                tools:maxLines="3"
+                tools:text="@tools:sample/lorem/random" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
 </layout>

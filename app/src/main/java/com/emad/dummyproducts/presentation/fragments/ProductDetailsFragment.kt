@@ -40,13 +40,12 @@ class ProductDetailsFragment : Fragment() {
             mainViewModel.productDetailsStateFlow.collectLatest {
                 when (it) {
                     is Resource.Error -> {
-                        Log.d(TAG, "getProductDetails: ERROR " + it.data)
                     }
                     is Resource.Loading -> {
-                        Log.d(TAG, "getProductDetails: Loading")
+
                     }
                     is Resource.Success -> {
-                        Log.d(TAG, "getProductDetails: SUCCESS " + it.data)
+                        mBinding.product = it.data?.data
                     }
                 }
             }
