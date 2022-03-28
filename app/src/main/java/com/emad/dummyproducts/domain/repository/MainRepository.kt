@@ -7,5 +7,5 @@ import com.emad.dummyproducts.data.paging.ProductsPagingSource
 import kotlinx.coroutines.flow.Flow
 
 interface MainRepository {
-    suspend fun getAllProducts(): Flow<PagingData<AllProductsResponse.Product>>
+    fun getAllProducts(): Flow<PagingData<AllProductsResponse.Product>>
 }

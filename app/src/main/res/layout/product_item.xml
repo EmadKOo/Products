@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="product"
+            type="com.emad.dummyproducts.data.model.AllProductsResponse.Product" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/movieViewHolder"
+        android:id="@+id/productsCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5sdp"
@@ -24,6 +26,7 @@
                 android:id="@+id/productIV"
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="@dimen/_80sdp"
+                loadImage="@{product.image}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/avatars" />
@@ -38,6 +41,7 @@
                 android:fontFamily="@font/almarai"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12sdp"
+                android:text="@{product.name}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/productIV"
                 app:layout_constraintTop_toTopOf="parent"

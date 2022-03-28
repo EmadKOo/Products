@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 
 class MainRepositoryImpl(private val apiService: ApiService): MainRepository {
 
-    override suspend fun getAllProducts(): Flow<PagingData<AllProductsResponse.Product>> {
+    override fun getAllProducts(): Flow<PagingData<AllProductsResponse.Product>> {
        return Pager(
            config = PagingConfig(
                pageSize = 5,

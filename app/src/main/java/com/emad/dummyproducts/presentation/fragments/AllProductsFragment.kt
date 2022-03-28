@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.emad.dummyproducts.databinding.FragmentAllProductsBinding
+import com.emad.dummyproducts.presentation.adapters.ProductsAdapter
 import com.emad.dummyproducts.presentation.viewmodel.MainViewModel
-import com.emad.dummyproducts.utils.Resource
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AllProductsFragment : Fragment() {
+    lateinit var productsAdapter: ProductsAdapter
     lateinit var mBinding: FragmentAllProductsBinding
     val mainViewModel by viewModel<MainViewModel>()
 
@@ -27,27 +28,20 @@ class AllProductsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initRecyclerview()
         loadAllProducts()
     }
-    
+
+    private fun initRecyclerview(){
+        productsAdapter = ProductsAdapter()
+        mBinding.productsRecyclerView.adapter= productsAdapter
+    }
+
     private fun loadAllProducts() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            mainViewModel.getAllProducts()
             mainViewModel.allProductsStateFlow.collectLatest {
-                when(it){
-                    is Resource.Error -> {
-                        Log.d(TAG, "loadAllProducts: ERROR " + it.data)
-                    }
-                    is Resource.Loading -> {
-                        Log.d(TAG, "loadAllProducts: Loading")
-                    }
-                    is Resource.Success -> {
-                        Log.d(TAG, "loadAllProducts: SUCCESS " + it.data)
-                    }
-                }
+                productsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
             }
         }
     }
 }
-
-private const val TAG = "AllProductsFragment"
