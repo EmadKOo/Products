@@ -16,6 +16,8 @@ class MainViewModel constructor(private val repository: MainRepository): ViewMod
     private val _productDetailsStateFlow = MutableStateFlow<Resource<ProductDetails>>(Resource.Init())
     val productDetailsStateFlow: StateFlow<Resource<ProductDetails>> = _productDetailsStateFlow
 
+    val networkStatus = MutableStateFlow(true)
+
     val allProductsStateFlow= repository.getAllProducts()
 
     fun getProductDetails(productID: Int)= viewModelScope.launch {
@@ -25,5 +27,10 @@ class MainViewModel constructor(private val repository: MainRepository): ViewMod
         }catch (ex: Exception){
             _productDetailsStateFlow.emit(Resource.Error(ex.localizedMessage))
         }
+    }
+
+
+    fun setNetworkStatus(action: Boolean)= viewModelScope.launch {
+        networkStatus.emit(action)
     }
 }

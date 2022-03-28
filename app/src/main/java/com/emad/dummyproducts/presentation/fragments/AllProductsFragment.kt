@@ -11,14 +11,14 @@ import androidx.navigation.fragment.findNavController
 import com.emad.dummyproducts.databinding.FragmentAllProductsBinding
 import com.emad.dummyproducts.domain.listeners.ProductSelected
 import com.emad.dummyproducts.presentation.adapters.ProductsAdapter
+import com.emad.dummyproducts.presentation.base.BaseFragment
 import com.emad.dummyproducts.presentation.viewmodel.MainViewModel
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AllProductsFragment : Fragment(), ProductSelected {
+class AllProductsFragment : BaseFragment(), ProductSelected {
     lateinit var productsAdapter: ProductsAdapter
     lateinit var mBinding: FragmentAllProductsBinding
-    val mainViewModel by viewModel<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

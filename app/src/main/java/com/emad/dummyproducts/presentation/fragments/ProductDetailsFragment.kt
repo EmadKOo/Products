@@ -10,15 +10,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.emad.dummyproducts.R
 import com.emad.dummyproducts.databinding.FragmentProductDetailsBinding
+import com.emad.dummyproducts.presentation.base.BaseFragment
 import com.emad.dummyproducts.presentation.viewmodel.MainViewModel
 import com.emad.dummyproducts.utils.Resource
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ProductDetailsFragment : Fragment() {
+class ProductDetailsFragment : BaseFragment() {
 
     lateinit var mBinding: FragmentProductDetailsBinding
-    val mainViewModel by viewModel<MainViewModel>()
     val args by navArgs<ProductDetailsFragmentArgs>()
 
     override fun onCreateView(
